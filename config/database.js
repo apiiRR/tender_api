@@ -3,10 +3,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const db = mysql.createConnection({
-  host: "sv2.ecc.co.id",
-  user: "tenderpl_mobile",
-  password: "U4drzPGd1Tlq",
-  database: "tenderpl_tenderp"
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 });
 
 db.connect((err) => {
