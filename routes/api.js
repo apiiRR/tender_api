@@ -1,12 +1,13 @@
 const express = require('express');
-const DaftarHitamController = require('../controller/daftar_hitam_controller');
+const DetailTenderController = require("../controller/detail_tender_controller");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send("Halo");
+  res.send("Halo Anak Ganteng");
 });
 
-router.get('/daftar_hitam', DaftarHitamController.index);
+router.get('/detail_tender', DetailTenderController.index);
+router.get('/detail_tender/:id', DetailTenderController.showById);
 
 module.exports = router;

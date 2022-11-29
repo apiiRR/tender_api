@@ -1,10 +1,10 @@
 const database = require('../config/database');
 
-class PenggunaModel {
+class PerubahanJadwalModel {
 
   static count() {
     return new Promise((resolve) => {
-      const sql = `SELECT COUNT(*) AS totalCount FROM pengguna`;
+      const sql = `SELECT COUNT(*) AS totalCount FROM perubahan_jadwal`;
       database.query(sql, (err, result) => {
         resolve(result[0].totalCount);
       })
@@ -13,7 +13,7 @@ class PenggunaModel {
 
   static allData(currentPage) {
     return new Promise((resolve) => {
-      const sql = `SELECT * FROM pengguna LIMIT 10 OFFSET ${currentPage}`;
+      const sql = `SELECT * FROM perubahan_jadwal LIMIT 10 OFFSET ${currentPage}`;
       database.query(sql, (err, result) => {
         resolve(result);
       });
@@ -22,7 +22,7 @@ class PenggunaModel {
 
   static find(id) {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM pengguna WHERE id_pengguna = ?`;
+      const sql = `SELECT * FROM perubahan_jadwal WHERE id_perubahan = ?`;
       database.query(sql, id, (err, results) => {
         const [data] = results
         resolve(data)
@@ -31,4 +31,4 @@ class PenggunaModel {
   }
 }
 
-module.exports = PenggunaModel; 
+module.exports = PerubahanJadwalModel; 
