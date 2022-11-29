@@ -2,8 +2,8 @@ const express = require('express');
 const router = require('./routes/api');
 const app = express();
 
-app.listen(6969, () => {
-  console.log("Server berjalan di : http://localhost:6969");
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server berjalan");
 });
 
 app.use(router);
