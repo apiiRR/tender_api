@@ -35,7 +35,7 @@ class PesertaTenderController {
     const { id } = req.params;
 
     const detailTender = await PesertaTenderModel.find(id);
-    if (detailTender) {
+    if (detailTender > 0) {
       const data = {
         message: "Get All Resource",
         data: detailTender
