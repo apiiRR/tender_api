@@ -22,10 +22,12 @@ class JadwalModel {
 
   static find(id) {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM jadwal WHERE id_jadwal = ?`;
+      const sql = `SELECT jadwal.*, tahapan.nama_tahapan
+      FROM jadwal 
+      INNER JOIN tahapan ON jadwal.id_tahapan = tahapan.id_tahapan
+      WHERE id_tender = ?`;
       database.query(sql, id, (err, results) => {
-        const [data] = results
-        resolve(data)
+        resolve(results)
       })
     })
   }

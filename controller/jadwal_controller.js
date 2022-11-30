@@ -35,7 +35,7 @@ class JadwalController {
     const { id } = req.params;
 
     const detailTender = await JadwalModel.find(id);
-    if (detailTender) {
+    if (detailTender.length > 0) {
       const data = {
         message: "Get All Resource",
         data: detailTender
