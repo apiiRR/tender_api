@@ -17,6 +17,7 @@ class TenderModel {
       FROM tender 
       INNER JOIN detail_tender ON tender.id_tender = detail_tender.id_tender 
       INNER JOIN jenis_tender ON tender.id_jenis = jenis_tender.id_jenis
+      ORDER BY tender.tgl_pembuatan DESC
       LIMIT 10 OFFSET ${currentPage}`;
       database.query(sql, (err, result) => {
         resolve(result);
