@@ -13,7 +13,11 @@ class TenderModel {
 
   static allData(currentPage) {
     return new Promise((resolve) => {
-      const sql = `SELECT tender.*, detail_tender.id_detail_tender, detail_tender.satker, detail_tender.nilai_pagu, detail_tender.lokasi_pekerjaan, detail_tender.kab_pekerjaan, detail_tender.prov_pekerjaan, detail_tender.cara_bayar, detail_tender.jumlah_peserta FROM tender INNER JOIN detail_tender ON tender.id_tender = detail_tender.id_tender LIMIT 10 OFFSET ${currentPage}`;
+      const sql = `SELECT tender.*, detail_tender.id_detail_tender, detail_tender.satker, detail_tender.nilai_pagu, detail_tender.lokasi_pekerjaan, detail_tender.kab_pekerjaan, detail_tender.prov_pekerjaan, detail_tender.cara_bayar, detail_tender.jumlah_peserta, jenis_tender.jenis_tender
+      FROM tender 
+      INNER JOIN detail_tender ON tender.id_tender = detail_tender.id_tender 
+      INNER JOIN jenis_tender ON tender.id_jenis = jenis_tender.id_jenis
+      LIMIT 10 OFFSET ${currentPage}`;
       database.query(sql, (err, result) => {
         resolve(result);
       });
