@@ -22,7 +22,7 @@ class DetailTenderModel {
 
   static find(id) {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT detail_tender.*, rup.id_rup, rup.nama_paket, rup.sumber_dana FROM detail_tender INNER JOIN rup ON detail_tender.id_tender = rup.id_tender WHERE detail_tender.id_tender = ?`;
+      const sql = `SELECT * FROM detail_tender WHERE id_tender = ?`;
       database.query(sql, id, (err, results) => {
         const [data] = results
         resolve(data)

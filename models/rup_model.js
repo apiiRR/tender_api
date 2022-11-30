@@ -22,7 +22,7 @@ class RUPModel {
 
   static find(id) {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM rup WHERE id_rup = ?`;
+      const sql = `SELECT * FROM rup WHERE id_tender = ?`;
       database.query(sql, id, (err, results) => {
         const [data] = results
         resolve(data)
