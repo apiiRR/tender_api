@@ -13,7 +13,7 @@ class PesertaTenderModel {
 
   static allData(currentPage) {
     return new Promise((resolve) => {
-      const sql = `SELECT * FROM peserta_tender LIMIT 10 OFFSET ${currentPage}`;
+      const sql = `SELECT peserta_tender.*, peserta.nama_peserta, peserta.alamat, peserta.kelurahan, peserta.kecamatan, peserta.kabupaten, peserta.provinsi, peserta.kode_klu, peserta.klu, peserta.no_telp, peserta.email FROM peserta_tender INNER JOIN peserta ON peserta_tender.id_peserta_tender = peserta.id_peserta LIMIT 10 OFFSET ${currentPage}`;
       database.query(sql, (err, result) => {
         resolve(result);
       });
