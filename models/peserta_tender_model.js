@@ -22,10 +22,9 @@ class PesertaTenderModel {
 
   static find(id) {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM peserta_tender WHERE id_peserta_tender = ?`;
+      const sql = `SELECT * FROM peserta_tender WHERE id_tender = ?`;
       database.query(sql, id, (err, results) => {
-        const [data] = results
-        resolve(data)
+        resolve(results);
       })
     })
   }
