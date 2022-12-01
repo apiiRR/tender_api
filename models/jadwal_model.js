@@ -25,7 +25,7 @@ class JadwalModel {
       const sql = `SELECT jadwal.*, tahapan.nama_tahapan
       FROM jadwal 
       INNER JOIN tahapan ON jadwal.id_tahapan = tahapan.id_tahapan
-      WHERE id_tender = ?`;
+      WHERE id_jadwal = ?`;
       database.query(sql, id, (err, results) => {
         resolve(results)
       })

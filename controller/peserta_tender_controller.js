@@ -9,13 +9,13 @@ class PesertaTenderController {
 
     const totalCount = await PesertaTenderModel.count();
     if (totalCount > 0) {
-      const detailTender = await PesertaTenderModel.allData(perPage);
+      const result = await PesertaTenderModel.allData(perPage);
 
       const data = {
         message: "Get All Resource",
         total_data: 10,
         page: currentPage,
-        data: detailTender
+        data: result
       }
 
       res.status(200)
@@ -32,13 +32,38 @@ class PesertaTenderController {
   }
 
   async showById(req, res) {
+    console.log("cek");
     const { id } = req.params;
 
-    const detailTender = await PesertaTenderModel.find(id);
-    if (detailTender.length > 0) {
+    const result = await PesertaTenderModel.find(id);
+    if (result.length > 0) {
       const data = {
         message: "Get All Resource",
-        data: detailTender
+        data: result
+      };
+
+      res.status(200)
+        .json(data);
+
+    } else {
+      const data = {
+        message: "Resource not found",
+        data: []
+      }
+
+      res.status(404)
+        .json(data);
+    }
+  }
+
+  async showByName(req, res) {
+    const { name } = req.query;
+
+    const result = await PesertaTenderModel.findByName(name);
+    if (result.length > 0) {
+      const data = {
+        message: "Get All Resource",
+        data: result
       };
 
       res.status(200)
