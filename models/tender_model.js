@@ -25,6 +25,15 @@ class TenderModel {
     });
   }
 
+  static timeSeries(npwp, year) {
+    return new Promise((resolve) => {
+      const sql = `SELECT tender.* FROM tender JOIN peserta_tender ON tender.id_tender = peserta_tender.id_tender WHERE peserta_tender.npwp = ${npwp} AND YEAR(tender.tgl_pembuatan) = ${year};`;
+      database.query(sql, (err, result) => {
+        resolve(result);
+      });
+    });
+  }
+
   static find(id) {
     return new Promise((resolve, reject) => {
       const sql = `SELECT tender.*, detail_tender.id_detail_detail, detail_tender.satker, detail_tender.nilai_pagu, detail_tender.lokasi_pekerjaan, detail_tender.kab_pekerjaan, detail_tender.prov_pekerjaan, detail_tender.cara_bayar, detail_tender.jumlah_peserta FROM tender INNER JOIN detail_tender ON tender.id_tender = detail_tender.id_tender WHERE tender.id_tender = ?`;

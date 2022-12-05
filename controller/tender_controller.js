@@ -54,6 +54,30 @@ class TenderController {
         .json(data);
     }
   }
+
+  async timeSeriesByYear(req, res) {
+    const { npwp, year } = req.query;
+
+    const detailTender = await TenderModel.timeSeries(npwp, year);
+    if (detailTender) {
+      const data = {
+        message: "Get All Resource",
+        data: detailTender
+      };
+
+      res.status(200)
+        .json(data);
+
+    } else {
+      const data = {
+        message: "Resource not found",
+        data: []
+      }
+
+      res.status(404)
+        .json(data);
+    }
+  }
 }
 
 const object = new TenderController();

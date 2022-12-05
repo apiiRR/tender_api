@@ -17,6 +17,7 @@ router.get('/peserta_tender/search', PesertaTenderController.showByName);
 router.get('/peserta_tender/:id', PesertaTenderController.showById);
 
 router.get('/tender', TenderController.index);
+router.get('/tender/time_series', TenderController.timeSeriesByYear);
 router.get('/tender/:id', TenderController.showById);
 
 module.exports = router;
