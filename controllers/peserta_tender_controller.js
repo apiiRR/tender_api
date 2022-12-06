@@ -32,7 +32,6 @@ class PesertaTenderController {
   }
 
   async showById(req, res) {
-    console.log("cek");
     const { id } = req.params;
 
     const result = await PesertaTenderModel.find(id);
