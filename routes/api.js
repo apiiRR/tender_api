@@ -35,4 +35,6 @@ router.get('/pemenang/time_series', PemenangController.timeSeriesByYear);
 router.post("/register", userRegisterValidationRules(), validate, UserController.register);
 router.post("/login", userLoginValidationRules(), validate, UserController.login);
 
+router.get('/pengguna/:email', AuthenticateAccessToken, UserController.showById);
+
 module.exports = router;

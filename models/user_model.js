@@ -24,15 +24,15 @@ class User {
     return user
   }
 
-  static searchUser(email) {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM pengguna WHERE email = ?`
-      database.query(sql, email, (err, results) => {
-        const [pengguna] = results
-        resolve(pengguna)
-      })
-    })
-  }
+  // static searchUser(email) {
+  //   return new Promise((resolve, reject) => {
+  //     const sql = `SELECT * FROM pengguna WHERE email = ?`
+  //     database.query(sql, email, (err, results) => {
+  //       const [pengguna] = results
+  //       resolve(pengguna)
+  //     })
+  //   })
+  // }
 }
 
 module.exports = User

@@ -1,4 +1,4 @@
-const User = require("../models/user_model");
+const UserModel = require("../models/user_model");
 
 const jwt = require('jsonwebtoken')
 const md5 = require('md5');
@@ -18,7 +18,7 @@ class UserController {
       password
     } = req.body
 
-    const isEmailExist = await User.find(email)
+    const isEmailExist = await UserModel.find(email)
     if (isEmailExist) {
       const data = {
         message: "Email is Exist"
@@ -37,7 +37,7 @@ class UserController {
       tgl_update: today.toISOString()
     }
 
-    const user = await User.create(data_user)
+    const user = await UserModel.create(data_user)
     const data = {
       message: "Register is successfully",
       data: user
@@ -55,7 +55,7 @@ class UserController {
 
     const payload = { email: email };
 
-    const user = await User.searchUser(email)
+    const user = await UserModel.find(email)
 
     const currentPassword = md5(password);
     const passwordMatch = currentPassword === user.password;
@@ -78,7 +78,32 @@ class UserController {
         .json(data)
     }
   }
+
+  async showById(req, res) {
+    const { email } = req.params;
+
+    const user = await UserModel.find(email);
+    if (user) {
+      const data = {
+        message: "Get All Resource",
+        data: user
+      };
+
+      res.status(200)
+        .json(data);
+
+    } else {
+      const data = {
+        message: "Resource not found",
+        data: []
+      }
+
+      res.status(404)
+        .json(data);
+    }
+  }
 }
+
 
 const object = new UserController()
 module.exports = object
