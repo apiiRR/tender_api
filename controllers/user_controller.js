@@ -43,7 +43,7 @@ class UserController {
       data: user
     }
 
-    res.status(200)
+    res.status(201)
       .json(data)
   }
 
@@ -83,6 +83,30 @@ class UserController {
     const { id } = req.params;
 
     const user = await UserModel.findById(id);
+    if (user) {
+      const data = {
+        message: "Get All Resource",
+        data: user
+      };
+
+      res.status(200)
+        .json(data);
+
+    } else {
+      const data = {
+        message: "Resource not found",
+        data: []
+      }
+
+      res.status(404)
+        .json(data);
+    }
+  }
+
+  async showByEmail(req, res) {
+    const { email } = req.params;
+
+    const user = await UserModel.findByEmail(email);
     if (user) {
       const data = {
         message: "Get All Resource",
