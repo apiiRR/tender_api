@@ -30,7 +30,7 @@ class User {
       })
     })
 
-    const user = this.find(insertId)
+    const user = this.findById(insertId)
     return user
   }
 
