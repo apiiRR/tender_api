@@ -221,6 +221,7 @@ class UserController {
     } = req.params
 
     let {
+      current_password,
       password,
     } = req.body
 
@@ -235,29 +236,35 @@ class UserController {
         .json(data)
     }
 
-    if (password) {
-      password = req.body.password;
-      password = md5(password);
+    let passwordMD = md5(password);
+    let currentPasswordMD = md5(current_password);
 
-      if (user.password === password) {
-        const data = {
-          message: "Password cannot the same",
-        }
-
-        res.status(404)
-          .json(data);
-
-        return;
+    if (user.password !== currentPasswordMD) {
+      const data = {
+        message: "Your old password is wrong",
       }
 
-    } else {
-      password = user.password;
+      res.status(404)
+        .json(data);
+
+      return;
+    }
+
+    if (user.password === passwordMD) {
+      const data = {
+        message: "Password cannot the same",
+      }
+
+      res.status(404)
+        .json(data);
+
+      return;
     }
 
     let tgl_update = today.toISOString();
 
     let data_user = {
-      password,
+      passwordMD,
       tgl_update
     }
 
