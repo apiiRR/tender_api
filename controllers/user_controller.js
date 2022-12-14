@@ -245,7 +245,9 @@ class UserController {
         }
 
         res.status(404)
-          .json(data)
+          .json(data);
+
+        return;
       }
 
     } else {
