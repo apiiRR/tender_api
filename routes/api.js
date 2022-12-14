@@ -38,5 +38,6 @@ router.post("/login", userLoginValidationRules(), validate, UserController.login
 router.get('/pengguna/id/:id', UserController.showById);
 router.get('/pengguna/email/:email', UserController.showByEmail);
 router.put('/pengguna/:id', UserController.update);
+router.put('/pengguna/change_password/:id', UserController.updatePassword);
 
 module.exports = router;

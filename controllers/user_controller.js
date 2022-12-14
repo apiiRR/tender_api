@@ -140,7 +140,7 @@ class UserController {
       alamat,
       no_telp,
       email,
-      password
+      // password
     } = req.body
 
     const user = await UserModel.findById(id)
@@ -184,12 +184,12 @@ class UserController {
       email = user.email
     }
 
-    if (password) {
-      password = req.body.password;
-      password = md5(password);
-    } else {
-      password = user.password;
-    }
+    // if (password) {
+    //   password = req.body.password;
+    //   password = md5(password);
+    // } else {
+    //   password = user.password;
+    // }
 
     let tgl_update = today.toISOString();
 
@@ -199,6 +199,62 @@ class UserController {
       alamat,
       no_telp,
       email,
+      // password,
+      tgl_update
+    }
+
+    const updateUser = await UserModel.update(id, data_user);
+    const data = {
+      message: "Resource is update successfully",
+      data: updateUser
+    }
+
+    res.status(200)
+      .json(data)
+  }
+
+  async updatePassword(req, res) {
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    const {
+      id
+    } = req.params
+
+    let {
+      password,
+    } = req.body
+
+    const user = await UserModel.findById(id)
+
+    if (!user) {
+      const data = {
+        message: "Resource not found"
+      }
+
+      res.status(404)
+        .json(data)
+    }
+
+    if (password) {
+      password = req.body.password;
+      password = md5(password);
+
+      if (user.password === password) {
+        const data = {
+          message: "Password cannot the same",
+        }
+
+        res.status(404)
+          .json(data)
+      }
+
+    } else {
+      password = user.password;
+    }
+
+    let tgl_update = today.toISOString();
+
+    let data_user = {
       password,
       tgl_update
     }
