@@ -222,7 +222,7 @@ class UserController {
 
     let {
       current_password,
-      password,
+      password_user,
     } = req.body
 
     const user = await UserModel.findById(id)
@@ -236,8 +236,8 @@ class UserController {
         .json(data)
     }
 
-    let passwordMD = md5(password);
     let currentPasswordMD = md5(current_password);
+    let password = md5(password_user);
 
     if (user.password !== currentPasswordMD) {
       const data = {
@@ -250,7 +250,7 @@ class UserController {
       return;
     }
 
-    if (user.password === passwordMD) {
+    if (user.password === password) {
       const data = {
         message: "Password cannot the same",
       }
@@ -264,7 +264,7 @@ class UserController {
     let tgl_update = today.toISOString();
 
     let data_user = {
-      passwordMD,
+      password,
       tgl_update
     }
 
