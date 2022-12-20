@@ -5,6 +5,7 @@ const TenderController = require("../controllers/tender_controller");
 const UserController = require("../controllers/user_controller");
 const PemenangController = require("../controllers/pemenang_controller");
 const DashboardUserController = require("../controllers/dashboard_user_controller");
+const LPSEController = require("../controllers/lpse_controller");
 const AuthenticateAccessToken = require("../controllers/middleware/verify");
 const {
   userLoginValidationRules,
@@ -34,6 +35,8 @@ router.get('/tender/:id', TenderController.showById);
 router.get('/pemenang/time_series', PemenangController.timeSeriesByYear);
 
 router.get('/dashboard_user/:npwp', DashboardUserController.getTotal);
+
+router.get('/lpse/search', LPSEController.showByName);
 
 router.post("/register", userRegisterValidationRules(), validate, UserController.register);
 router.post("/login", userLoginValidationRules(), validate, UserController.login);
