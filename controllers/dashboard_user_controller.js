@@ -1,4 +1,5 @@
 const PemenangModel = require("../models/pemenang_model");
+const TenderModel = require("../models/tender_model");
 
 class DashboardUserController {
 
@@ -18,6 +19,30 @@ class DashboardUserController {
           "kalah": jumlahKalah.kalah,
           "ikuti": jumlahIkuti.ikuti,
         }
+      };
+
+      res.status(200)
+        .json(data);
+
+    } else {
+      const data = {
+        message: "Resource not found",
+        data: []
+      }
+
+      res.status(404)
+        .json(data);
+    }
+  }
+
+  async getRiwayat(req, res) {
+    const { npwp } = req.params;
+
+    const tender = await TenderModel.findTenderByNPWP(npwp);
+    if (tender) {
+      const data = {
+        message: "Get All Resource",
+        data: tender
       };
 
       res.status(200)

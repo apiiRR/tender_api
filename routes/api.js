@@ -34,7 +34,8 @@ router.get('/tender/:id', TenderController.showById);
 
 router.get('/pemenang/time_series', PemenangController.timeSeriesByYear);
 
-router.get('/dashboard_user/:npwp', DashboardUserController.getTotal);
+router.get('/dashboard_user/total/:npwp', DashboardUserController.getTotal);
+router.get('/dashboard_user/riwayat_tender/:npwp', DashboardUserController.getRiwayat);
 
 router.get('/lpse/search', LPSEController.showByName);
 
