@@ -14,7 +14,7 @@ class DashboardSupplierController {
         data: {
           "total": jumlahTender,
           "aktif": jumlahAktif.active,
-          "kalah": jumlahSekarang.today,
+          "sekarang": jumlahSekarang.today,
         }
       };
 
