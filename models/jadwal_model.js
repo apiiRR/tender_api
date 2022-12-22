@@ -31,6 +31,16 @@ class JadwalModel {
       })
     })
   }
+
+  static today() {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(DISTINCT id_tender) AS today FROM tenderpl_tenderp.jadwal WHERE DATEDIFF(CURDATE(),tgl_mulai) = 0;`;
+      database.query(sql, (err, result) => {
+        const [total] = result;
+        resolve(total);
+      })
+    });
+  }
 }
 
 module.exports = JadwalModel; 

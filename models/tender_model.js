@@ -4,9 +4,19 @@ class TenderModel {
 
   static count() {
     return new Promise((resolve) => {
-      const sql = `SELECT COUNT(*) AS totalCount FROM tender`;
+      const sql = `SELECT COUNT(*) AS total FROM tender`;
       database.query(sql, (err, result) => {
-        resolve(result[0].totalCount);
+        resolve(result[0].total);
+      })
+    });
+  }
+
+  static active() {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(DISTINCT peserta_tender.id_tender) AS active FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE peserta_tender.harga_penawaran != 0 AND tender.status NOT IN ('Tender Sudah Selesai', 'Seleksi Batal', 'Tender Gagal', 'Seleksi Gagal', 'Tender Batal');`;
+      database.query(sql, (err, result) => {
+        const [total] = result;
+        resolve(total);
       })
     });
   }

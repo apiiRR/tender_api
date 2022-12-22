@@ -51,6 +51,34 @@ class PemenangModel {
       });
     });
   }
+
+  static pemenangTenderAll() {
+    return new Promise((resolve) => {
+      const sql = `SELECT * FROM pemenang;`;
+      database.query(sql, (err, result) => {
+        resolve(result);
+      });
+    });
+  }
+
+  static pemenangTenderByStatusTTDKontrak() {
+    return new Promise((resolve) => {
+      const sql = `SELECT pemenang.* FROM tenderpl_tenderp.pemenang JOIN (SELECT jadwal.*, tahapan.nama_tahapan FROM tenderpl_tenderp.jadwal JOIN tenderpl_tenderp.tahapan ON jadwal.id_tahapan = tahapan.id_tahapan WHERE jadwal.id_tahapan = 12 AND DATEDIFF(CURDATE(), jadwal.tgl_mulai) <= 7) AS jadwal_tahapan ON pemenang.id_tender = jadwal_tahapan.id_tender;`;
+      database.query(sql, (err, result) => {
+        resolve(result);
+      });
+    });
+  }
+
+  static count() {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(*) AS total FROM pemenang`;
+      database.query(sql, (err, result) => {
+        const [total] = result
+        resolve(total);
+      })
+    });
+  }
 }
 
 module.exports = PemenangModel; 

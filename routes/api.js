@@ -5,6 +5,7 @@ const TenderController = require("../controllers/tender_controller");
 const UserController = require("../controllers/user_controller");
 const PemenangController = require("../controllers/pemenang_controller");
 const DashboardUserController = require("../controllers/dashboard_user_controller");
+const DashboardSupplierController = require("../controllers/dashboard_supplier_controller");
 const LPSEController = require("../controllers/lpse_controller");
 const AuthenticateAccessToken = require("../controllers/middleware/verify");
 const {
@@ -36,6 +37,9 @@ router.get('/pemenang/time_series', PemenangController.timeSeriesByYear);
 
 router.get('/dashboard_user/total/:npwp', DashboardUserController.getTotal);
 router.get('/dashboard_user/riwayat_tender/:npwp', DashboardUserController.getRiwayat);
+
+router.get('/dashboard_supplier/total', DashboardSupplierController.getTotal);
+router.get('/dashboard_supplier/pemenang', DashboardSupplierController.getPemenang);
 
 router.get('/lpse/search', LPSEController.showByName);
 
