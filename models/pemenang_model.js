@@ -22,10 +22,30 @@ class PemenangModel {
     });
   }
 
+  static jumlahPemenangTenderByNPWPAsosiasi(id) {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(*) AS pemenang FROM tenderpl_tenderp.pemenang WHERE npwp IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ?);`;
+      database.query(sql, id, (err, result) => {
+        const [pemenang] = result;
+        resolve(pemenang);
+      });
+    });
+  }
+
   static jumlahTenderByNPWP(npwp) {
     return new Promise((resolve) => {
       const sql = `SELECT COUNT(*) AS jumlah FROM tenderpl_tenderp.peserta_tender WHERE npwp = ${npwp}`;
       database.query(sql, (err, result) => {
+        const [tender] = result;
+        resolve(tender);
+      });
+    });
+  }
+
+  static jumlahTenderByNPWPAsoasi(id) {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(*) AS jumlah FROM tenderpl_tenderp.peserta_tender WHERE npwp IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ?);`;
+      database.query(sql, id, (err, result) => {
         const [tender] = result;
         resolve(tender);
       });
@@ -42,10 +62,30 @@ class PemenangModel {
     });
   }
 
+  static jumlahKalahTenderByNPWPAsoasi(id) {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(*) AS kalah FROM tenderpl_tenderp.pemenang WHERE id_tender IN (SELECT id_tender FROM tenderpl_tenderp.peserta_tender WHERE npwp IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ${id}) AND harga_penawaran != 0) AND npwp NOT IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ${id});`;
+      database.query(sql, (err, result) => {
+        const [kalah] = result;
+        resolve(kalah);
+      });
+    });
+  }
+
   static jumlahTenderIkutByNPWP(npwp) {
     return new Promise((resolve) => {
       const sql = `SELECT COUNT(*) AS ikuti FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE peserta_tender.npwp = ${npwp} AND peserta_tender.harga_penawaran != 0 AND tender.status NOT IN ('Tender Sudah Selesai', 'Seleksi Batal', 'Tender Gagal', 'Seleksi Gagal', 'Tender Batal');`;
       database.query(sql, (err, result) => {
+        const [ikuti] = result;
+        resolve(ikuti);
+      });
+    });
+  }
+
+  static jumlahTenderIkutByNPWPAsosiasi(id) {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(*) AS ikuti FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE peserta_tender.npwp IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ?) AND peserta_tender.harga_penawaran != 0 AND tender.status NOT IN ('Tender Sudah Selesai', 'Seleksi Batal', 'Tender Gagal', 'Seleksi Gagal', 'Tender Batal');`;
+      database.query(sql, id, (err, result) => {
         const [ikuti] = result;
         resolve(ikuti);
       });

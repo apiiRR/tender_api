@@ -11,10 +11,29 @@ class TenderModel {
     });
   }
 
+  // static countByNPWP(id) {
+  //   return new Promise((resolve) => {
+  //     const sql = `SELECT COUNT(tender.id_tender) AS total FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE peserta_tender.npwp IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ?);`;
+  //     database.query(sql, id, (err, result) => {
+  //       resolve(result[0].total);
+  //     })
+  //   });
+  // }
+
   static active() {
     return new Promise((resolve) => {
       const sql = `SELECT COUNT(DISTINCT peserta_tender.id_tender) AS active FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE peserta_tender.harga_penawaran != 0 AND tender.status NOT IN ('Tender Sudah Selesai', 'Seleksi Batal', 'Tender Gagal', 'Seleksi Gagal', 'Tender Batal');`;
       database.query(sql, (err, result) => {
+        const [total] = result;
+        resolve(total);
+      })
+    });
+  }
+
+  static activeByNPWP(id) {
+    return new Promise((resolve) => {
+      const sql = `SELECT COUNT(DISTINCT peserta_tender.id_tender) AS active FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE peserta_tender.npwp IN (SELECT npwp FROM tenderpl_tenderp.anggota_asosiasi WHERE id_pengguna = ?) AND peserta_tender.harga_penawaran != 0 AND tender.status NOT IN ('Tender Sudah Selesai', 'Seleksi Batal', 'Tender Gagal', 'Seleksi Gagal', 'Tender Batal');`;
+      database.query(sql, id, (err, result) => {
         const [total] = result;
         resolve(total);
       })

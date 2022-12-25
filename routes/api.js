@@ -6,6 +6,7 @@ const UserController = require("../controllers/user_controller");
 const PemenangController = require("../controllers/pemenang_controller");
 const DashboardUserController = require("../controllers/dashboard_user_controller");
 const DashboardSupplierController = require("../controllers/dashboard_supplier_controller");
+const DashboardAsosiasiController = require("../controllers/dashboard_asosiasi_controller");
 const LPSEController = require("../controllers/lpse_controller");
 const AuthenticateAccessToken = require("../controllers/middleware/verify");
 const {
@@ -40,6 +41,8 @@ router.get('/dashboard_user/riwayat_tender/:npwp', DashboardUserController.getRi
 
 router.get('/dashboard_supplier/total', DashboardSupplierController.getTotal);
 router.get('/dashboard_supplier/pemenang', DashboardSupplierController.getPemenang);
+
+router.get('/dashboard_asosiasi/total/:id', DashboardAsosiasiController.getTotal);
 
 router.get('/lpse/search', LPSEController.showByName);
 
