@@ -8,6 +8,7 @@ const DashboardUserController = require("../controllers/dashboard_user_controlle
 const DashboardSupplierController = require("../controllers/dashboard_supplier_controller");
 const DashboardAsosiasiController = require("../controllers/dashboard_asosiasi_controller");
 const LPSEController = require("../controllers/lpse_controller");
+const AnggotaController = require("../controllers/anggota_controller");
 const AuthenticateAccessToken = require("../controllers/middleware/verify");
 const {
   userLoginValidationRules,
@@ -45,6 +46,9 @@ router.get('/dashboard_supplier/pemenang', DashboardSupplierController.getPemena
 router.get('/dashboard_asosiasi/total/:id', DashboardAsosiasiController.getTotal);
 
 router.get('/lpse/search', LPSEController.showByName);
+
+router.get('/anggota/:id', AnggotaController.showById);
+router.post('/anggota', AnggotaController.create);
 
 router.post("/register", userRegisterValidationRules(), validate, UserController.register);
 router.post("/login", userLoginValidationRules(), validate, UserController.login);
