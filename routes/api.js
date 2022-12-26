@@ -49,6 +49,7 @@ router.get('/lpse/search', LPSEController.showByName);
 
 router.get('/anggota/:id', AnggotaController.showById);
 router.post('/anggota', AnggotaController.create);
+router.delete('/anggota/:id', AnggotaController.destroy);
 
 router.post("/register", userRegisterValidationRules(), validate, UserController.register);
 router.post("/login", userLoginValidationRules(), validate, UserController.login);

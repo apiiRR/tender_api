@@ -58,6 +58,30 @@ class AnggotaController {
         .json(data);
     }
   }
+
+  async destroy(req, res) {
+    const {
+      id
+    } = req.params
+    const anggota = await AnggotaModel.findById(id)
+
+    if (anggota) {
+      await AnggotaModel.delete(id)
+      const data = {
+        message: "Resource is delete successfully"
+      }
+
+      res.status(200)
+        .json(data)
+    } else {
+      const data = {
+        message: "Resource not found"
+      }
+
+      res.status(404)
+        .json(data)
+    }
+  }
 }
 
 const object = new AnggotaController()

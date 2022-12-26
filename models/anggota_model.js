@@ -41,6 +41,15 @@ class Anggota {
     const user = this.findById(insertId)
     return user
   }
+
+  static delete(id) {
+    return new Promise((resolve, reject) => {
+      const sql = `DELETE FROM anggota_asosiasi WHERE id_anggota = ?`
+      database.query(sql, id, (err, results) => {
+        resolve(results)
+      })
+    })
+  }
 }
 
 module.exports = Anggota;
