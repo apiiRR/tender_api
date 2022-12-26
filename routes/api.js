@@ -44,6 +44,7 @@ router.get('/dashboard_supplier/total', DashboardSupplierController.getTotal);
 router.get('/dashboard_supplier/pemenang', DashboardSupplierController.getPemenang);
 
 router.get('/dashboard_asosiasi/total/:id', DashboardAsosiasiController.getTotal);
+router.get('/dashboard_asosiasi/detail/:npwp', DashboardAsosiasiController.getTotalById);
 
 router.get('/lpse/search', LPSEController.showByName);
 
