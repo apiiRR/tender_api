@@ -23,7 +23,7 @@ class Anggota {
 
   static findByIdPengguna(id) {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM anggota_asosiasi WHERE id_pengguna = ?`
+      const sql = `SELECT anggota_asosiasi.*, peserta.nama_peserta FROM tenderpl_tenderp.anggota_asosiasi JOIN tenderpl_tenderp.peserta ON anggota_asosiasi.npwp = peserta.npwp WHERE anggota_asosiasi.id_pengguna = ?`
       database.query(sql, id, (err, results) => {
         resolve(results)
       })
