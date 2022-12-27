@@ -47,6 +47,7 @@ router.get('/dashboard_asosiasi/total/:id', DashboardAsosiasiController.getTotal
 router.get('/dashboard_asosiasi/detail/:npwp', DashboardAsosiasiController.getTotalById);
 
 router.get('/lpse/search', LPSEController.showByName);
+router.get('/lpse/total/:id', LPSEController.countByLPSE);
 
 router.get('/anggota/:id', AnggotaController.showById);
 router.post('/anggota', AnggotaController.create);

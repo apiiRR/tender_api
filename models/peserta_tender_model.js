@@ -46,6 +46,15 @@ class PesertaTenderModel {
       })
     })
   }
+
+  static countByLPSE(id) {
+    return new Promise((resolve, reject) => {
+      const sql = `SELECT peserta.nama_peserta, COUNT(peserta_tender.npwp) AS total FROM tenderpl_tenderp.peserta JOIN tenderpl_tenderp.peserta_tender ON peserta.npwp = peserta_tender.npwp WHERE peserta_tender.npwp IN (SELECT peserta_tender.npwp FROM tenderpl_tenderp.peserta_tender JOIN tenderpl_tenderp.tender ON peserta_tender.id_tender = tender.id_tender WHERE tender.id_lpse = ${id}) GROUP BY peserta_tender.npwp;`;
+      database.query(sql, (err, results) => {
+        resolve(results);
+      })
+    })
+  }
 }
 
 module.exports = PesertaTenderModel; 
